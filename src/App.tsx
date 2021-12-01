@@ -1,44 +1,35 @@
 import { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import React from 'react'
+import { Stage,Graphics } from '@inlet/react-pixi';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+    const draw = React.useCallback(g => {
+    g.clear()
+    g.beginFill(0xff3300)
+    g.lineStyle(4, 0xffd900, 1)
+    g.moveTo(50, 50)
+    g.lineTo(250, 50)
+    g.lineTo(100, 100)
+    g.lineTo(50, 50)
+    g.endFill()
+    g.lineStyle(2, 0x0000ff, 1)
+    g.beginFill(0xff700b, 1)
+    g.drawRect(50, 150, 120, 120)
+    g.lineStyle(2, 0xff00ff, 1)
+    g.beginFill(0xff00bb, 0.25)
+    g.drawRoundedRect(150, 100, 300, 100, 15)
+    g.endFill()
+    g.lineStyle(0)
+    g.beginFill(0xffff0b, 0.5)
+    g.drawCircle(470, 90, 60)
+    g.endFill()
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Stage width={600} height={300} options={{ backgroundColor: 0xffffff }}>
+      <Graphics draw={draw} />
+    </Stage>
   )
 }
 
